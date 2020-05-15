@@ -1,0 +1,37 @@
+---    
+  # Ansible Tower
+  - name: tower
+    ip:   192.168.2.170
+    memory: 4096
+    cpus: 2
+    
+  # Jenkins Master
+  - name: jenkins
+    ip:   192.168.2.180
+    memory: 2048
+    cpus: 2
+  
+  # Jenkins Maven Agent
+  - name: maven.jenkins
+    ip:   192.168.2.183
+    memory: 4096
+    cpus: 2
+    
+  # Nexus
+  - name: nexus
+    ip:   192.168.2.192
+    memory: 4096
+    cpus: 2
+  
+  # Sonar
+  - name: sonar
+    ip:   192.168.2.194
+    memory: 4096
+    cpus: 2  
+
+  # Vault
+  - name: vault
+    ip:   192.168.2.196
+    memory: 2048
+    cpus: 2
+    
