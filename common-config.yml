@@ -1,9 +1,14 @@
 ---
-   box: "centos/7"
    domain: "local.net"
-   default.memory: 1024
+   default.group: "DevOps"
+   default.box: "bento/centos-8"
+   default.box_version: "202005.21.0"
    default.cpus: 1
+   default.memory: 1024
+   # default.disksize: "50GB"
    default.gateway: 192.168.2.1
+   default.interface:
+     - em4
 
 #   synced_folders:
 #      - src: keys
@@ -18,24 +23,39 @@
      - type: file
        src: shell
        dest: /vagrant/shell
-       
-#     - type: ansible
-#       playbook: playbook/basic_conf.yaml
-#       args:
-#       
+
+     # - type: ansible
+     #   playbook: playbook/basic_conf.yaml
+     #   args:
+
+     - type: shell
+       script: shell/update-packages.sh
+       args:
+
      - type: shell
        script: shell/install-packages.sh
-       args: --packages "wget git net-tools yum-utils bash-completion psacct NetworkManager"
-       
+       args: --packages "wget git net-tools bash-completion"
+
      - type: shell
        script: shell/network_conf.sh
        args: --dns "192.168.2.100"
-       
+
      - type: shell
-       script: shell/ntpd_conf.sh
+       script: shell/gateway_conf.sh
+       args: --gateway "192.168.2.1"
+
+     - type: shell
+       script: shell/timezone_conf.sh
+       args: --timezone "America/Toronto"
+
+     # - type: shell
+     #   script: shell/ntpd_conf.sh
+     #   args:
+
+     - type: shell
+       script: shell/install-cockpit.sh
        args:
-       
+
      - type: shell
        script: shell/sshd_conf.sh
        args:
-   

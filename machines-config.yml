@@ -1,37 +1,47 @@
----    
+---
   # Ansible Tower
   - name: tower
+    box: ansible/tower
+    box_version: 3.7.0
     ip:   192.168.2.170
-    memory: 4096
-    cpus: 2
-    
+    memory: 2048
+    cpus: 1
+
+    #disks:
+    #  - location: disks/infra-docker
+    #    size: 20
+
+    #provisions:
+    #  - type: shell
+    #    script: shell/install-awx.sh
+    #    args: --dns "192.168.2.100"
+
   # Jenkins Master
   - name: jenkins
     ip:   192.168.2.180
     memory: 2048
     cpus: 2
-  
+
   # Jenkins Maven Agent
   - name: maven.jenkins
     ip:   192.168.2.183
     memory: 4096
     cpus: 2
-    
+
   # Nexus
   - name: nexus
     ip:   192.168.2.192
     memory: 4096
     cpus: 2
-  
+
   # Sonar
   - name: sonar
     ip:   192.168.2.194
     memory: 4096
-    cpus: 2  
+    cpus: 2
 
   # Vault
   - name: vault
     ip:   192.168.2.196
     memory: 2048
     cpus: 2
-    
