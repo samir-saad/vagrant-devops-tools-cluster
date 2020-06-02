@@ -5,7 +5,9 @@
    default.box_version: "202005.21.0"
    default.cpus: 1
    default.memory: 1024
-   # default.disksize: "50GB"
+   # default.disk.size: "50GB"
+   default.disk.controller: "SATA Controller"
+   # default.disk.format: "vdi"
    default.gateway: 192.168.2.1
    default.interface:
      - em4
@@ -15,6 +17,10 @@
 #        dest: /keys
 #        options:
 #          :create: true
+
+   # disks:
+   #   - name: var
+   #     size: 30
 
    provisions:
      - type: file
@@ -34,7 +40,7 @@
 
      - type: shell
        script: shell/install-packages.sh
-       args: --packages "wget git net-tools bash-completion"
+       args: --packages "wget git net-tools bash-completion NetworkManager"
 
      - type: shell
        script: shell/network_conf.sh
@@ -42,7 +48,7 @@
 
      - type: shell
        script: shell/gateway_conf.sh
-       args: --gateway "192.168.2.1"
+       args: --gateway "192.168.2.1" --device "eth1"
 
      - type: shell
        script: shell/timezone_conf.sh
@@ -54,8 +60,16 @@
 
      - type: shell
        script: shell/install-cockpit.sh
-       args:
+       args: --port "8080"
 
      - type: shell
        script: shell/sshd_conf.sh
        args:
+
+     - type: shell
+       script: shell/create_disk_partition.sh
+       args: --disk "/dev/sdb" --label "msdos" --type "primary" --start "0" --end "100%" --fs "ext4"
+
+     - type: shell
+       script: shell/disk_mount.sh
+       args: --disk "/dev/sdb1" --dest "/var"

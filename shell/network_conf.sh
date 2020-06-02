@@ -40,7 +40,7 @@ configure_network_manager() {
   sed -i "/\[main\]/a dns=none" /etc/NetworkManager/NetworkManager.conf
 
   # Restart NetworkManager
-  systemctl restart NetworkManager
+  systemctl restart network NetworkManager
 }
 
 add_dns() {

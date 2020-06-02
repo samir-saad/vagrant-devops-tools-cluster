@@ -90,8 +90,7 @@ Vagrant.configure("2") do |config|
          vb.cpus = cpus
 
          ## Create and attach disks to machine
-         create_disks(vb, commonDisks)
-         create_disks(vb, machineDisks)
+         create_disks(vb,  Array(commonDisks) | Array(machineDisks), commonConfig, machine)
        end
 
        ## provisioning
